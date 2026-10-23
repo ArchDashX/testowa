@@ -3,249 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adisburoo | Official</title>
-    <!-- Czcionka z Google Fonts dla nowoczesnego wyglądu -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Ikony dla programistów (FontAwesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>adisbro | Programista</title>
     
+    <!-- Czcionki z Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Ikony FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Reset i podstawowe zmienne */
+        /* Reset i zmienne */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(20, 25, 40, 0.7);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.3);
+            --tiktok-color: #ff0050;
+            --discord-color: #5865F2;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Space Grotesk', sans-serif;
         }
 
-        :root {
-            --bg-color: #0d1117; /* Ciemne tło jak w GitHubie */
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --text-main: #ffffff;
-            --text-muted: #8b949e;
-            --accent-1: #00f2fe; /* Neonowy błękit */
-            --accent-2: #4facfe;
-            --tiktok: #ff0050;
-            --discord: #5865F2;
-        }
-
-        /* Tło z animowanym gradientem */
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 15% 50%, rgba(79, 172, 254, 0.08), transparent 25%),
-                              radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.08), transparent 25%);
             color: var(--text-main);
+            font-family: var(--font-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Główny kontener (szklany efekt) */
+        /* Efekty świetlne w tle (Neonowe plamy) */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            background: #2563eb;
+            top: -10%;
+            left: -10%;
+        }
+
+        .glow-2 {
+            width: 300px;
+            height: 300px;
+            background: #7c3aed;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Główny kontener */
         .container {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
-            position: relative;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
             z-index: 10;
         }
 
-        /* Animacja wejścia */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Karta profilowa (Glassmorphism) */
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
         }
 
-        /* Zdjęcie profilowe z poświatą */
-        .profile-img-container {
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Zdjęcie profilowe */
+        .image-wrapper {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 20px;
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            border: 3px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.3s ease;
-        }
-
-        /* Animowana aureola wokół zdjęcia */
-        .profile-img-container::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: -3px; right: -3px; bottom: -3px;
-            background: linear-gradient(45deg, var(--accent-1), var(--accent-2), var(--tiktok));
             border-radius: 50%;
-            z-index: 1;
-            filter: blur(10px);
-            opacity: 0.7;
-            animation: pulse 3s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            100% { transform: scale(1.05); opacity: 0.8; }
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: all 0.3s ease;
         }
 
         .profile-img:hover {
-            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        /* Zielona kropka statusu */
+        .status-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: #10b981;
+            border: 3px solid var(--bg-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
         }
 
         /* Teksty */
-        h1 {
+        .nickname {
             font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #fff, #b3b3b3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
         }
 
-        .tagline {
+        .cursor {
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .role {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .role i {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+
+        /* Okienko terminala (Dla programisty) */
+        .terminal-box {
+            background: #0f111a;
+            border-radius: 10px;
             margin-bottom: 30px;
+            text-align: left;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-header {
+            background: #1a1e2d;
+            padding: 10px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .tagline i {
-            color: var(--accent-1);
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 15px;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            line-height: 1.6;
         }
 
-        /* Przyciski / Linki */
-        .links {
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+
+        /* Przyciski do social mediów */
+        .links-grid {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .link-btn {
+        .social-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 16px;
+            gap: 10px;
+            padding: 15px;
             border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        /* Efekt najechania na przycisk */
-        .link-btn:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+        .social-btn i {
+            font-size: 1.2rem;
         }
 
-        .link-btn i {
-            font-size: 1.4rem;
-            transition: transform 0.3s ease;
-        }
-
-        .link-btn:hover i {
-            transform: scale(1.2) rotate(5deg);
-        }
-
-        /* Kolory specyficzne dla platform */
-        .link-btn.tiktok:hover {
-            border-color: var(--tiktok);
+        /* Efekty hover dla TikToka */
+        .social-btn.tiktok:hover {
+            background: rgba(255, 0, 80, 0.1);
+            border-color: var(--tiktok-color);
             box-shadow: 0 0 20px rgba(255, 0, 80, 0.3);
+            transform: scale(1.02);
         }
-        .link-btn.tiktok i { color: var(--tiktok); }
 
-        .link-btn.discord:hover {
-            border-color: var(--discord);
+        /* Efekty hover dla Discorda */
+        .social-btn.discord {
+            position: relative;
+        }
+
+        .social-btn.discord:hover {
+            background: rgba(88, 101, 242, 0.1);
+            border-color: var(--discord-color);
             box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
-        }
-        .link-btn.discord i { color: var(--discord); }
-
-        /* Stopka */
-        .footer {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            transform: scale(1.02);
         }
 
-        /* Animowane tło (kropki) */
-        .bg-animation {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: moveBackground 20s linear infinite;
-            opacity: 0.3;
+        .copy-icon {
+            position: absolute;
+            right: 15px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
         }
 
-        @keyframes moveBackground {
-            from { background-position: 0 0; }
-            to { background-position: 30px 30px; }
+        .social-btn.discord:hover .copy-icon {
+            opacity: 1;
         }
 
+        /* Responsywność dla małych ekranów */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            .profile-card {
+                padding: 30px 20px;
+            }
+            .nickname {
+                font-size: 1.6rem;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Animowane tło -->
-    <div class="bg-animation"></div>
-
-    <!-- Główna karta -->
-    <div class="container">
-        
-        <!-- Zdjęcie (podmień src na swoje zdjęcie) -->
-        <div class="profile-img-container">
-            <!-- Upewnij się, że plik ze zdjęciem nazywa się zdjecie.jpg i jest w tym samym folderze -->
-            <img src="zdjecie.jpg" alt="Adisburoo" class="profile-img">
-        </div>
-
-        <h1>adisburoo</h1>
-        <p class="tagline"><i class="fa-solid fa-code"></i> Content Creator & Gamer</p>
-
-        <div class="links">
-            <!-- Link do TikToka -->
-            <a href="https://www.tiktok.com/@adisburoo" target="_blank" class="link-btn tiktok">
-                <i class="fa-brands fa-tiktok"></i>
-                TikTok
-            </a>
-
-            <!-- Link do Discorda -->
-            <a href="https://discord.com/users/adisbro." target="_blank" class="link-btn discord">
-                <i class="fa-brands fa-discord"></i>
-                adisbro.
-            </a>
-        </div>
-
-        <div class="footer">
-            &copy; 2024 adisburoo. All rights reserved.
-        </div>
+    <!-- Efekt tła -->
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
     </div>
 
+    <main class="container">
+        <!-- Karta profilowa -->
+        <section class="profile-card">
+            <div class="image-wrapper">
+                <!-- Tutaj podmień src na nazwę swojego pliku ze zdjęciem -->
+                <img src="profil.jpg" alt="adisbro" class="profile-img">
+                <div class="status-dot"></div>
+            </div>
+            
+            <h1 class="nickname">adisbro<span class="cursor">_</span></h1>
+            <p class="role"><i class="fa-solid fa-code"></i> Developer & Creator</p>
+            
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="keyword">const</span> status = <span class="string">"Piszę czysty kod i tworzę kontent"</span>;</p>
+                    <p><span class="keyword">let</span> lokalizacja = <span class="string">"Polska"</span>;</p>
+                </div>
+            </div>
+
+            <!-- Linki -->
+            <div class="links-grid">
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@adisburoo" target="_blank" class="social-btn tiktok">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+
+                <!-- Discord -->
+                <div class="social-btn discord" onclick="copyDiscord()">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>Discord: adisbro.</span>
+                    <i class="fa-regular fa-copy copy-icon" title="Kopiuj nick"></i>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Prosty skrypt do kopiowania nicku z Discorda
+        function copyDiscord() {
+            navigator.clipboard.writeText("adisbro.").then(() => {
+                alert("Skopiowano nick Discord: adisbro.");
+            }).catch(err => {
+                console.error('Błąd podczas kopiowania: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
