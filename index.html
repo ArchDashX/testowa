@@ -1,378 +1,251 @@
-<!-- plik: index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARUYEQ | Zen Portfolio</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>Adisburoo | Official</title>
+    <!-- Czcionka z Google Fonts dla nowoczesnego wyglądu -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Ikony dla programistów (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Reset i podstawowe zmienne */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
         :root {
-            --washi-bg: #f7f5f0; /* Ciepły, papierowy odcień */
-            --charcoal: #2a2a2a; /* Węgiel drzewny (sumi) */
-            --indigo: #1a2a40; /* Głęboki indygo */
-            --vermilion: #b83a3a; /* Czynobrowa czerwień */
-            --sand: #e6e2d8; /* Piaskowy (żwir) */
-            --font-sans: 'Inter', sans-serif;
-            --font-serif: 'Noto Serif JP', serif;
+            --bg-color: #0d1117; /* Ciemne tło jak w GitHubie */
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --accent-1: #00f2fe; /* Neonowy błękit */
+            --accent-2: #4facfe;
+            --tiktok: #ff0050;
+            --discord: #5865F2;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        /* Tło z animowanym gradientem */
         body {
-            background-color: var(--washi-bg);
-            color: var(--charcoal);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            /* Tekstura papieru washi (subtelny szum) */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-        }
-
-        /* --- UKŁAD ASYMETRYCZNY (MA) --- */
-        .layout {
-            display: grid;
-            grid-template-columns: 1fr;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 15% 50%, rgba(79, 172, 254, 0.08), transparent 25%),
+                              radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.08), transparent 25%);
+            color: var(--text-main);
             min-height: 100vh;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        @media (min-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr 1fr;
-                align-items: center;
-                gap: 6rem;
-                padding: 6rem 4rem;
-            }
-        }
-
-        /* --- LEWA STRONA: HERO (SUMI-E & ENSO) --- */
-        .hero {
-            position: relative;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
-            padding-left: 2rem;
-            z-index: 2;
+            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* Pionowa czerwona linia */
-        .hero::before {
+        /* Główny kontener (szklany efekt) */
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animacja wejścia */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Zdjęcie profilowe z poświatą */
+        .profile-img-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        /* Animowana aureola wokół zdjęcia */
+        .profile-img-container::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 10%;
-            height: 80%;
-            width: 2px;
-            background-color: var(--vermilion);
-        }
-
-        /* Okrąg Enso (namalowany pędzlem) */
-        .enso {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            border: 2px solid rgba(42, 42, 42, 0.1);
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(45deg, var(--accent-1), var(--accent-2), var(--tiktok));
             border-radius: 50%;
-            z-index: -1;
-            /* Efekt nieidealnego okręgu */
-            border-right-color: transparent;
-            border-bottom-color: rgba(42, 42, 42, 0.05);
-            transform: translate(-50%, -50%) rotate(-15deg) scaleX(1.05);
+            z-index: 1;
+            filter: blur(10px);
+            opacity: 0.7;
+            animation: pulse 3s infinite alternate;
         }
 
-        /* Kanji (japoński znak) */
-        .kanji {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            color: var(--vermilion);
-            letter-spacing: 4px;
-            margin-bottom: 1rem;
-            writing-mode: vertical-rl; /* Pionowy zapis */
-            position: absolute;
-            right: -2rem;
-            top: 0;
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            100% { transform: scale(1.05); opacity: 0.8; }
         }
 
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Teksty */
         h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: var(--indigo);
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .tagline {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            color: var(--charcoal);
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .description {
+            color: var(--text-muted);
             font-size: 1rem;
-            color: var(--charcoal);
-            opacity: 0.7;
-            max-width: 400px;
-            margin-bottom: 3rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        /* --- PRAWA STRONA: LINKI --- */
-        .links-section {
+        .tagline i {
+            color: var(--accent-1);
+        }
+
+        /* Przyciski / Linki */
+        .links {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            z-index: 2;
+            gap: 15px;
         }
 
-        .link-item {
+        .link-btn {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem;
+            justify-content: center;
+            gap: 12px;
             text-decoration: none;
-            color: var(--charcoal);
-            border-bottom: 1px solid rgba(42, 42, 42, 0.1);
-            transition: all 0.3s ease;
-            background: transparent;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .link-item:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            padding-left: 1.5rem; /* Efekt przesunięcia */
-            border-bottom-color: var(--vermilion);
+        /* Efekt najechania na przycisk */
+        .link-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
         }
 
-        .link-name {
-            font-weight: 400;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .link-btn i {
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
         }
 
-        .link-name i {
-            font-style: normal;
-            color: var(--vermilion);
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            width: 20px;
-            text-align: center;
+        .link-btn:hover i {
+            transform: scale(1.2) rotate(5deg);
         }
 
-        .link-arrow {
-            font-size: 1.2rem;
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
+        /* Kolory specyficzne dla platform */
+        .link-btn.tiktok:hover {
+            border-color: var(--tiktok);
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.3);
         }
+        .link-btn.tiktok i { color: var(--tiktok); }
 
-        .link-item:hover .link-arrow {
-            opacity: 1;
-            transform: translateX(5px);
+        .link-btn.discord:hover {
+            border-color: var(--discord);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
         }
+        .link-btn.discord i { color: var(--discord); }
 
-        /* --- STOPKA (ŻWIR) --- */
-        footer {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 3rem 0 1rem;
-            margin-top: 4rem;
-            /* Tekstura żwiru (zen garden) */
-            background-image: radial-gradient(circle, rgba(42, 42, 42, 0.05) 1px, transparent 1px);
-            background-size: 8px 8px;
-            border-top: 1px solid rgba(42, 42, 42, 0.05);
-        }
-
-        footer p {
+        /* Stopka */
+        .footer {
+            margin-top: 30px;
             font-size: 0.8rem;
-            color: var(--charcoal);
-            opacity: 0.6;
-            letter-spacing: 2px;
-            background: var(--washi-bg); /* Zasłonięcie żwiru pod tekstem */
-            display: inline-block;
-            padding: 0 1rem;
+            color: var(--text-muted);
         }
 
-        /* --- ANIMACJE (SAKURA) --- */
-        .sakura-container {
+        /* Animowane tło (kropki) */
+        .bg-animation {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            z-index: -1;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: moveBackground 20s linear infinite;
+            opacity: 0.3;
         }
 
-        .petal {
-            position: absolute;
-            background-color: #f2d4d7; /* Blady róż */
-            border-radius: 100% 0 100% 0; /* Kształt płatka */
-            opacity: 0.6;
-            animation: fall linear infinite;
+        @keyframes moveBackground {
+            from { background-position: 0 0; }
+            to { background-position: 30px 30px; }
         }
 
-        @keyframes fall {
-            0% { transform: translate(0, -10vh) rotate(0deg); }
-            100% { transform: translate(20px, 110vh) rotate(360deg); }
-        }
-
-        /* --- BANER COOKIES --- */
-        .cookie-banner {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%) translateY(200%);
-            width: calc(100% - 2rem); max-width: 600px;
-            background: var(--washi-bg);
-            padding: 1.5rem; z-index: 9999;
-            transition: transform 0.5s ease;
-            border-left: 2px solid var(--vermilion);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .cookie-banner.show { transform: translateX(-50%) translateY(0); }
-        .cookie-text { font-size: 0.8rem; margin-bottom: 1rem; color: var(--charcoal); }
-        .cookie-actions { display: flex; gap: 1rem; }
-        .cookie-btn {
-            padding: 0.6rem 1.2rem; border: 1px solid var(--charcoal);
-            background: transparent; cursor: pointer; font-family: var(--font-sans);
-            font-size: 0.8rem; transition: all 0.2s;
-        }
-        .cookie-btn:hover { background: var(--charcoal); color: var(--washi-bg); }
-
-        /* --- RESPONSYWNOŚĆ --- */
-        @media (max-width: 900px) {
-            .layout { padding: 3rem 1.5rem; }
-            .hero { padding-left: 1.5rem; }
-            .hero::before { height: 100%; }
-            h1 { font-size: 2.5rem; }
-            .kanji { display: none; } /* Ukrycie pionowego tekstu na małych ekranach */
-        }
     </style>
 </head>
 <body>
 
-    <!-- Spadające płatki sakury -->
-    <div class="sakura-container" id="sakura"></div>
+    <!-- Animowane tło -->
+    <div class="bg-animation"></div>
 
-    <div class="layout">
-        <!-- Sekcja Hero -->
-        <header class="hero">
-            <div class="enso"></div>
-            <div class="kanji">美</div> <!-- Znak "piękno" -->
-            <h1>ARUYEQ</h1>
-            <p class="tagline">"I use Arch btw"</p>
-            <p class="description">
-                Minimalizm, pełna kontrola i czysty kod. Tworzę treści o <strong>Arch Linux</strong>, <strong>Hyprland</strong> i customizacji systemu.
-            </p>
-        </header>
+    <!-- Główna karta -->
+    <div class="container">
+        
+        <!-- Zdjęcie (podmień src na swoje zdjęcie) -->
+        <div class="profile-img-container">
+            <!-- Upewnij się, że plik ze zdjęciem nazywa się zdjecie.jpg i jest w tym samym folderze -->
+            <img src="zdjecie.jpg" alt="Adisburoo" class="profile-img">
+        </div>
 
-        <!-- Sekcja Linków -->
-        <section class="links-section">
-            <a href="https://x.com/aruyeq" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>𝕏</i> X (Twitter)</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="#" class="link-item" onclick="copyDiscord(event)">
-                <span class="link-name"><i>デ</i> Discord: @aruyeq</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="https://youtube.com/@aruyeq" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>▶</i> YouTube</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="https://rumble.com/user/ArchDashX" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>▷</i> Rumble</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="https://github.com/ArchDashX" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>⌥</i> GitHub</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="https://steamcommunity.com/profiles/76561199828261881/" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>◈</i> Steam</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="https://medal.tv/u/aruyeq?invite=ur-MSxLdDcsNjYxNDQ1MTAx" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="link-name"><i>▣</i> Medal.tv</span>
-                <span class="link-arrow">→</span>
-            </a>
-        </section>
+        <h1>adisburoo</h1>
+        <p class="tagline"><i class="fa-solid fa-code"></i> Content Creator & Gamer</p>
 
-        <!-- Stopka -->
-        <footer>
-            <p>&copy; 2026 ARUYEQ. Wszelkie prawa zastrzeżone.</p>
-        </footer>
-    </div>
+        <div class="links">
+            <!-- Link do TikToka -->
+            <a href="https://www.tiktok.com/@adisburoo" target="_blank" class="link-btn tiktok">
+                <i class="fa-brands fa-tiktok"></i>
+                TikTok
+            </a>
 
-    <!-- Cookie Banner -->
-    <div class="cookie-banner" id="cookie-banner">
-        <div class="cookie-text">Ta strona używa minimalnej ilości plików cookies, aby zapewnić poprawne działanie. Wybierz opcję.</div>
-        <div class="cookie-actions">
-            <button class="cookie-btn" onclick="setCookies('all')">Akceptuj wszystkie</button>
-            <button class="cookie-btn" onclick="setCookies('necessary')">Tylko niezbędne</button>
+            <!-- Link do Discorda -->
+            <a href="https://discord.com/users/adisbro." target="_blank" class="link-btn discord">
+                <i class="fa-brands fa-discord"></i>
+                adisbro.
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; 2024 adisburoo. All rights reserved.
         </div>
     </div>
 
-    <script>
-        const CONSENT_KEY = 'aruyeq_cookie_consent';
-
-        document.addEventListener("DOMContentLoaded", () => {
-            // Generowanie płatków sakury
-            const sakuraContainer = document.getElementById('sakura');
-            const petalCount = 15;
-
-            for (let i = 0; i < petalCount; i++) {
-                const petal = document.createElement('div');
-                petal.classList.add('petal');
-                
-                // Losowy rozmiar
-                const size = Math.random() * 8 + 6;
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size}px`;
-                
-                // Losowa pozycja startowa
-                petal.style.left = `${Math.random() * 100}%`;
-                
-                // Losowa animacja
-                const duration = Math.random() * 10 + 10;
-                petal.style.animationDuration = `${duration}s`;
-                petal.style.animationDelay = `${Math.random() * 5}s`;
-                
-                sakuraContainer.appendChild(petal);
-            }
-
-            // Cookies
-            if (!localStorage.getItem(CONSENT_KEY)) {
-                setTimeout(() => { document.getElementById('cookie-banner').classList.add('show'); }, 1500);
-            }
-        });
-
-        function setCookies(type) {
-            localStorage.setItem(CONSENT_KEY, type);
-            document.getElementById('cookie-banner').classList.remove('show');
-        }
-
-        async function copyDiscord(e) {
-            e.preventDefault();
-            const btn = e.currentTarget;
-            const originalHtml = btn.innerHTML;
-            if (!navigator.clipboard) return console.error('Clipboard API not supported');
-            
-            try {
-                await navigator.clipboard.writeText('@aruyeq');
-                btn.innerHTML = `<span class="link-name"><i style="color: #4caf50;">✓</i> Skopiowano!</span><span class="link-arrow">→</span>`;
-                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
-            } catch (err) { console.error('Failed to copy text: ', err); }
-        }
-    </script>
 </body>
 </html>
